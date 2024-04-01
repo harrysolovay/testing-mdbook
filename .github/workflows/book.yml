@@ -1,16 +1,21 @@
-name: continuous-integration
+name: Book
 on:
   push:
     branches:
       - main
 jobs:
-  build:
+  build-book:
     runs-on: ubuntu-latest
+    container:
+      image: michaelfbryan/mdbook-docker-image
     steps:
-      - uses: actions/checkout@v4
-      - run: curl -L https://github.com/rust-lang/mdBook/releases/download/v0.4.37/mdbook-v0.4.37-x86_64-unknown-linux-gnu.tar.gz | tar xz
-      - run: ./mdbook build
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.PAT }}
-          publish_dir: ./target/book
+    - uses: actions/checkout@v4
+    - run: mdbook build
+    - uses: actions/upload-artifact@v4
+      with:
+        name: book
+        path: ./target/book
+    - uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.PAT }}
+        publish_dir: ./target/book
