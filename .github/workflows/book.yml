@@ -6,12 +6,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    run: |
-      curl -L https://github.com/rust-lang/mdBook/releases/download/v0.4.37/mdbook-v0.4.37-x86_64-unknown-linux-gnu.tar.gz | tar xz
-      ./mdbook build
-  deploy:
-    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - run: curl -L https://github.com/rust-lang/mdBook/releases/download/v0.4.37/mdbook-v0.4.37-x86_64-unknown-linux-gnu.tar.gz | tar xz
+      - run: ./mdbook build
       - uses: peaceiris/actions-gh-pages
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
