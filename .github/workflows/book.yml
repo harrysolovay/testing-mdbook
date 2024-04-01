@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build-book:
+  build:
     runs-on: ubuntu-latest
     container:
       image: michaelfbryan/mdbook-docker-image
@@ -15,7 +15,15 @@ jobs:
       with:
         name: book
         path: ./target/book
-    - uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./target/book
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: book
+          path: ./target/book
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/book
