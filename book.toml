@@ -1,0 +1,37 @@
+[book]
+language = "en"
+multilingual = false
+src = "book"
+title = "Liminal Documentation"
+description = "Information on using Liminal to streamline the development of Mina-interfacing applications."
+
+[build]
+build-dir = "target/book"
+create-missing = false
+
+[output.html]
+preferred-dark-theme = "Ayu"
+copy-fonts = true
+no-section-label = false
+git-repository-url = "https://github.com/MinaFoundation/liminal"
+edit-url-template = "https://github.com/MinaFoundation/edit/main/{path}"
+additional-css = ["book/globals.css"]
+
+[output.html.print]
+enable = true
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+copy-js = true
